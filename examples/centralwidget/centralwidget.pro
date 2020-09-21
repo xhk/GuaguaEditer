@@ -5,7 +5,7 @@ QT       += core gui widgets
 TARGET = CentralWidgetExample
 DESTDIR = $${ADS_OUT_ROOT}/lib
 TEMPLATE = app
-CONFIG += c++14
+CONFIG += c++1z
 CONFIG += debug_and_release
 adsBuildStatic {
     DEFINES += ADS_STATIC
@@ -27,7 +27,10 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
-LIBS += -L$${ADS_OUT_ROOT}/lib
+LIBS += \
+    -L$${ADS_OUT_ROOT}/lib \
+    -lScintillaEdit
+    
 
 # Dependency: AdvancedDockingSystem (shared)
 CONFIG(debug, debug|release){
@@ -45,6 +48,12 @@ else{
     LIBS += -lqtadvanceddocking
 }
 
-INCLUDEPATH += ../../src
+INCLUDEPATH += \
+    ../../src \
+    ../../scintilla/include \
+    ../../scintilla/src \
+    ../../scintilla/qt/ScintillaEditBase \
+    ../../scintilla/qt/ScintillaEdit \
+
 DEPENDPATH += ../../src
 

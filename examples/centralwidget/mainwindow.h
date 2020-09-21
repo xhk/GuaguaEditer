@@ -6,6 +6,7 @@
 #include "DockManager.h"
 #include "DockAreaWidget.h"
 #include "DockWidget.h"
+#include <ScintillaEdit.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class CMainWindow; }
@@ -28,5 +29,7 @@ private:
     ads::CDockManager* DockManager;
     ads::CDockAreaWidget* StatusDockArea;
     ads::CDockWidget* TimelineDockWidget;
+
+    ScintillaEdit *_edit;
 };
 #endif // MAINWINDOW_H

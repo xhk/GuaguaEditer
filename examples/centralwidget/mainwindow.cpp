@@ -36,8 +36,14 @@ CMainWindow::CMainWindow(QWidget *parent)
     DockManager = new CDockManager(this);
 
     // Set central widget
-    QPlainTextEdit* w = new QPlainTextEdit();
-	w->setPlaceholderText("This is the central editor. Enter your text here.");
+    //QPlainTextEdit* w = new QPlainTextEdit();
+    //w->setPlaceholderText("This is the central editor. Enter your text here.");
+    auto w = new ScintillaEdit();
+    // 2号页边，宽度为20，显示行号
+    w->setMarginTypeN(2, SC_MARGIN_NUMBER);
+    w->setMarginWidthN(2,20);
+
+    w->setText("aaaaaa");
     CDockWidget* CentralDockWidget = new CDockWidget("CentralWidget");
     CentralDockWidget->setWidget(w);
     auto* CentralDockArea = DockManager->setCentralWidget(CentralDockWidget);
@@ -77,6 +83,8 @@ CMainWindow::CMainWindow(QWidget *parent)
     PropertiesDockWidget->setMinimumSize(200,150);
     DockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, PropertiesDockWidget, CentralDockArea);
     ui->menuView->addAction(PropertiesDockWidget->toggleViewAction());
+
+
 }
 
 CMainWindow::~CMainWindow()
