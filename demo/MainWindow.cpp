@@ -372,25 +372,26 @@ struct MainWindowPrivate
 //============================================================================
 void MainWindowPrivate::createContent()
 {
+    ads::CDockWidget* DockWidget = nullptr;
 	// Test container docking
-	auto DockWidget = createCalendarDockWidget();
-	DockWidget->setFeature(ads::CDockWidget::DockWidgetClosable, false);
-	auto SpecialDockArea = DockManager->addDockWidget(ads::LeftDockWidgetArea, DockWidget);
+    //DockWidget = createCalendarDockWidget();
+    //DockWidget->setFeature(ads::CDockWidget::DockWidgetClosable, false);
+    //auto SpecialDockArea = DockManager->addDockWidget(ads::LeftDockWidgetArea, DockWidget);
+    //
+    //// For this Special Dock Area we want to avoid dropping on the center of it (i.e. we don't want this widget to be ever tabbified):
+    //{
+    //	SpecialDockArea->setAllowedAreas(ads::OuterDockAreas);
+    //	//SpecialDockArea->setAllowedAreas({ads::LeftDockWidgetArea, ads::RightDockWidgetArea}); // just for testing
+    //}
 
-	// For this Special Dock Area we want to avoid dropping on the center of it (i.e. we don't want this widget to be ever tabbified):
-	{
-		SpecialDockArea->setAllowedAreas(ads::OuterDockAreas);
-		//SpecialDockArea->setAllowedAreas({ads::LeftDockWidgetArea, ads::RightDockWidgetArea}); // just for testing
-	}
-
-	DockWidget = createLongTextLabelDockWidget();
-	WindowTitleTestDockWidget = DockWidget;
-	DockWidget->setFeature(ads::CDockWidget::DockWidgetFocusable, false);
-	DockManager->addDockWidget(ads::LeftDockWidgetArea, DockWidget);
+    //DockWidget = createLongTextLabelDockWidget();
+    //WindowTitleTestDockWidget = DockWidget;
+    //DockWidget->setFeature(ads::CDockWidget::DockWidgetFocusable, false);
+    //DockManager->addDockWidget(ads::LeftDockWidgetArea, DockWidget);
 	auto FileSystemWidget = createFileSystemTreeDockWidget();
 	FileSystemWidget->setFeature(ads::CDockWidget::DockWidgetFloatable, false);
 	appendFeaturStringToWindowTitle(FileSystemWidget);
-	DockManager->addDockWidget(ads::BottomDockWidgetArea, FileSystemWidget);
+    DockManager->addDockWidget(ads::LeftDockWidgetArea, FileSystemWidget);
 
 	FileSystemWidget = createFileSystemTreeDockWidget();
 	FileSystemWidget->setFeature(ads::CDockWidget::DockWidgetMovable, false);
@@ -430,11 +431,11 @@ void MainWindowPrivate::createContent()
 	});
 
 	// Test dock area docking
-	auto RighDockArea = DockManager->addDockWidget(ads::RightDockWidgetArea, createLongTextLabelDockWidget(), TopDockArea);
-	DockManager->addDockWidget(ads::TopDockWidgetArea, createLongTextLabelDockWidget(), RighDockArea);
-	auto BottomDockArea = DockManager->addDockWidget(ads::BottomDockWidgetArea, createLongTextLabelDockWidget(), RighDockArea);
-	DockManager->addDockWidget(ads::CenterDockWidgetArea, createLongTextLabelDockWidget(), RighDockArea);
-	DockManager->addDockWidget(ads::CenterDockWidgetArea, createLongTextLabelDockWidget(), BottomDockArea);
+    //auto RighDockArea = DockManager->addDockWidget(ads::RightDockWidgetArea, createLongTextLabelDockWidget(), TopDockArea);
+    //DockManager->addDockWidget(ads::TopDockWidgetArea, createLongTextLabelDockWidget(), RighDockArea);
+    //auto BottomDockArea = DockManager->addDockWidget(ads::BottomDockWidgetArea, createLongTextLabelDockWidget(), RighDockArea);
+    //DockManager->addDockWidget(ads::CenterDockWidgetArea, createLongTextLabelDockWidget(), RighDockArea);
+    //DockManager->addDockWidget(ads::CenterDockWidgetArea, createLongTextLabelDockWidget(), BottomDockArea);
 
     auto Action = ui.menuTests->addAction(QString("Set %1 Floating").arg(DockWidget->windowTitle()));
     DockWidget->connect(Action, SIGNAL(triggered()), SLOT(setFloating()));
@@ -444,10 +445,10 @@ void MainWindowPrivate::createContent()
     DockWidget->connect(Action, SIGNAL(triggered()), SLOT(raise()));
 
 #ifdef Q_OS_WIN
-    if (!ads::CDockManager::testConfigFlag(ads::CDockManager::OpaqueUndocking))
-    {
-    	DockManager->addDockWidget(ads::CenterDockWidgetArea, createActiveXWidget(), RighDockArea);
-    }
+    //if (!ads::CDockManager::testConfigFlag(ads::CDockManager::OpaqueUndocking))
+    //{
+    //	DockManager->addDockWidget(ads::CenterDockWidgetArea, createActiveXWidget(), RighDockArea);
+    //}
 #endif
 
 	for (auto DockWidget : DockManager->dockWidgetsMap())

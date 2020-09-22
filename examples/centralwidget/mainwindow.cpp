@@ -46,8 +46,9 @@ CMainWindow::CMainWindow(QWidget *parent)
     w->setText("aaaaaa");
     CDockWidget* CentralDockWidget = new CDockWidget("CentralWidget");
     CentralDockWidget->setWidget(w);
-    auto* CentralDockArea = DockManager->setCentralWidget(CentralDockWidget);
-    CentralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
+    //auto* CentralDockArea = DockManager->setCentralWidget(CentralDockWidget);
+    //CentralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
+    auto CentralDockArea = DockManager->addDockWidget(ads::CenterDockWidgetArea, CentralDockWidget);
 
     // create other dock widgets
     QTreeView* fileTree = new QTreeView();
