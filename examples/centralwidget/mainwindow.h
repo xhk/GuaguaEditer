@@ -20,6 +20,9 @@ public:
     CMainWindow(QWidget *parent = nullptr);
     ~CMainWindow();
 
+private slots:
+    void on_actionNew_triggered();
+
 private:
     static const QString kTableTopLayout;
     static const QString kTableBottomLayout;
@@ -31,5 +34,7 @@ private:
     ads::CDockWidget* TimelineDockWidget;
 
     ScintillaEdit *_edit;
+
+    void NewEdit();
 };
 #endif // MAINWINDOW_H
