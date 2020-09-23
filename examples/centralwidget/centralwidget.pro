@@ -27,6 +27,8 @@ HEADERS += \
 FORMS += \
     mainwindow.ui
 
+RC_ICONS = res\TextEdit.ico
+
 LIBS += \
     -L$${ADS_OUT_ROOT}/lib \
     -lScintillaEdit
@@ -56,4 +58,7 @@ INCLUDEPATH += \
     ../../scintilla/qt/ScintillaEdit \
 
 DEPENDPATH += ../../src
+
+RESOURCES += \
+    resources.qrc
 

@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/TextEdit.ico</file>
+    </qresource>
+</RCC>
