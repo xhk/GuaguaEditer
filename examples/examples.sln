@@ -1,0 +1,38 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CentralWidgetExample", "E:/github.com/GuaguaEditer/examples/centralwidget\CentralWidgetExample.vcxproj", "{F3E950B4-080E-3F60-BFB0-B33C1DB96E46}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimpleExample", "E:/github.com/GuaguaEditer/examples/simple\SimpleExample.vcxproj", "{9638953B-46BD-38AC-91DC-1C2FD86739E5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SidebarExample", "E:/github.com/GuaguaEditer/examples/sidebar\SidebarExample.vcxproj", "{4A84CD70-6F99-38A2-AC9F-44A72FC7637D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DeleteOnCloseTest", "E:/github.com/GuaguaEditer/examples/deleteonclose\DeleteOnCloseTest.vcxproj", "{EB972C3F-0990-3062-9A63-71A740C754DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3E950B4-080E-3F60-BFB0-B33C1DB96E46}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F3E950B4-080E-3F60-BFB0-B33C1DB96E46}.Debug|Win32.Build.0 = Debug|Win32
+		{F3E950B4-080E-3F60-BFB0-B33C1DB96E46}.Release|Win32.ActiveCfg = Release|Win32
+		{F3E950B4-080E-3F60-BFB0-B33C1DB96E46}.Release|Win32.Build.0 = Release|Win32
+		{9638953B-46BD-38AC-91DC-1C2FD86739E5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9638953B-46BD-38AC-91DC-1C2FD86739E5}.Debug|Win32.Build.0 = Debug|Win32
+		{9638953B-46BD-38AC-91DC-1C2FD86739E5}.Release|Win32.ActiveCfg = Release|Win32
+		{9638953B-46BD-38AC-91DC-1C2FD86739E5}.Release|Win32.Build.0 = Release|Win32
+		{4A84CD70-6F99-38A2-AC9F-44A72FC7637D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4A84CD70-6F99-38A2-AC9F-44A72FC7637D}.Debug|Win32.Build.0 = Debug|Win32
+		{4A84CD70-6F99-38A2-AC9F-44A72FC7637D}.Release|Win32.ActiveCfg = Release|Win32
+		{4A84CD70-6F99-38A2-AC9F-44A72FC7637D}.Release|Win32.Build.0 = Release|Win32
+		{EB972C3F-0990-3062-9A63-71A740C754DF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EB972C3F-0990-3062-9A63-71A740C754DF}.Debug|Win32.Build.0 = Debug|Win32
+		{EB972C3F-0990-3062-9A63-71A740C754DF}.Release|Win32.ActiveCfg = Release|Win32
+		{EB972C3F-0990-3062-9A63-71A740C754DF}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
