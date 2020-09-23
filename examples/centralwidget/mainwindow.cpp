@@ -25,6 +25,37 @@
 
 using namespace ads;
 
+CDockAreaWidget *area = nullptr;
+
+void CMainWindow::NewEdit()
+{
+    auto w = new ScintillaEdit();
+    // 2号页边，宽度为20，显示行号
+    w->setMarginTypeN(2, SC_MARGIN_NUMBER);
+    w->setMarginWidthN(2,20);
+
+    //w->setText("aaaaaa");
+
+    auto names = DockManager->perspectiveNames();
+    QString newName = "";
+    int index = 1;
+    for(int i=0;i<names.size();++i){
+        auto name = names[i];
+        name = name.replace("New ", "");
+        int n = name.toInt();
+        if(n>index){
+            index = n+1;
+        }
+    }
+    newName = QString("New %1").arg(index);
+
+    CDockWidget* CentralDockWidget = new CDockWidget(newName);
+    CentralDockWidget->setWidget(w);
+
+    area = DockManager->addDockWidget(ads::CenterDockWidgetArea, CentralDockWidget,area);
+}
+
+
 CMainWindow::CMainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::CMainWindow)
@@ -35,34 +66,34 @@ CMainWindow::CMainWindow(QWidget *parent)
     CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
     DockManager = new CDockManager(this);
 
+    NewEdit();
+
     // Set central widget
     //QPlainTextEdit* w = new QPlainTextEdit();
     //w->setPlaceholderText("This is the central editor. Enter your text here.");
-    auto w = new ScintillaEdit();
-    // 2号页边，宽度为20，显示行号
-    w->setMarginTypeN(2, SC_MARGIN_NUMBER);
-    w->setMarginWidthN(2,20);
 
-    w->setText("aaaaaa");
-    CDockWidget* CentralDockWidget = new CDockWidget("CentralWidget");
-    CentralDockWidget->setWidget(w);
     //auto* CentralDockArea = DockManager->setCentralWidget(CentralDockWidget);
     //CentralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
-    auto CentralDockArea = DockManager->addDockWidget(ads::CenterDockWidgetArea, CentralDockWidget);
 
     // create other dock widgets
     QTreeView* fileTree = new QTreeView();
     fileTree->setFrameShape(QFrame::NoFrame);
-    QFileSystemModel* fileModel = new QFileSystemModel(fileTree);
+    /*QFileSystemModel* fileModel = new QFileSystemModel(fileTree);
     fileModel->setRootPath(QDir::currentPath());
-    fileTree->setModel(fileModel);
+    fileTree->setModel(fileModel);*/
     CDockWidget* DataDockWidget = new CDockWidget("File system");
     DataDockWidget->setWidget(fileTree);
-    DataDockWidget->resize(150, 250);
-    DataDockWidget->setMinimumSize(100, 250);
-    auto* fileArea = DockManager->addDockWidget(DockWidgetArea::LeftDockWidgetArea, DataDockWidget, CentralDockArea);
+    DataDockWidget->resize(150, 100);
+    DataDockWidget->setMinimumSize(150, 100);
+    //DataDockWidget->setMaximumWidth(150);
+    auto* fileArea = DockManager->addDockWidget(DockWidgetArea::LeftDockWidgetArea, DataDockWidget);
     ui->menuView->addAction(DataDockWidget->toggleViewAction());
 
+    //fileArea->resize(200,800);
+    fileArea->setMaximumWidth(200);
+
+
+    /*
     QTableWidget* table = new QTableWidget();
     table->setColumnCount(3);
     table->setRowCount(10);
@@ -73,8 +104,8 @@ CMainWindow::CMainWindow(QWidget *parent)
     TableDockWidget->setMinimumSize(200,150);
     DockManager->addDockWidget(DockWidgetArea::BottomDockWidgetArea, TableDockWidget, fileArea);
     ui->menuView->addAction(TableDockWidget->toggleViewAction());
-
-    QTableWidget* propertiesTable = new QTableWidget();
+*/
+    /*QTableWidget* propertiesTable = new QTableWidget();
     propertiesTable->setColumnCount(3);
     propertiesTable->setRowCount(10);
     CDockWidget* PropertiesDockWidget = new CDockWidget("Properties");
@@ -84,7 +115,7 @@ CMainWindow::CMainWindow(QWidget *parent)
     PropertiesDockWidget->setMinimumSize(200,150);
     DockManager->addDockWidget(DockWidgetArea::RightDockWidgetArea, PropertiesDockWidget, CentralDockArea);
     ui->menuView->addAction(PropertiesDockWidget->toggleViewAction());
-
+    */
 
 }
 
@@ -93,3 +124,13 @@ CMainWindow::~CMainWindow()
     delete ui;
 }
 
+
+void CMainWindow::on_actionNew_triggered()
+{
+    NewEdit();
+}
+
+void CMainWindow::on_actionOpen_triggered()
+{
+
+}

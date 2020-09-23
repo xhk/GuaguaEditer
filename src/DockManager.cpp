@@ -904,7 +904,7 @@ CDockAreaWidget* CDockManager::setCentralWidget(CDockWidget* widget)
 		return nullptr;
 	}
 
-	// Setting a new central widget is now allowed if there is alread a central
+    // Setting a new central widget is not allowed if there is alread a central
 	// widget
 	if (d->CentralWidget)
 	{
