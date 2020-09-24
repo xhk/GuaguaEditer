@@ -2,7 +2,7 @@ ADS_OUT_ROOT = $${OUT_PWD}/../..
 
 QT       += core gui widgets
 
-TARGET = CentralWidgetExample
+TARGET = GGEditer
 DESTDIR = $${ADS_OUT_ROOT}/lib
 TEMPLATE = app
 CONFIG += c++1z
@@ -52,10 +52,10 @@ else{
 
 INCLUDEPATH += \
     ../../src \
-    ../../scintilla/include \
-    ../../scintilla/src \
-    ../../scintilla/qt/ScintillaEditBase \
-    ../../scintilla/qt/ScintillaEdit \
+    ../scintilla/include \
+    ../scintilla/src \
+    ../scintilla/qt/ScintillaEditBase \
+    ../scintilla/qt/ScintillaEdit \
 
 DEPENDPATH += ../../src
 
