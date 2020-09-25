@@ -34,10 +34,7 @@ CDockAreaWidget *area = nullptr;
 FileEditCtrl* CMainWindow::NewEdit(const char *data, QString filePath)
 {
     auto w = new FileEditCtrl();
-    // 2号页边，宽度为20，显示行号
-    w->setMarginTypeN(2, SC_MARGIN_NUMBER);
-    w->setMarginWidthN(2,20);
-    w->setCodePage(SC_CP_UTF8);
+    w->Init();
 
     if (data) {
         w->setText(data);

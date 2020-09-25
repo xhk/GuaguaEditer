@@ -12,6 +12,18 @@ FileEditCtrl::~FileEditCtrl() {
 
 }
 
+void FileEditCtrl::Init() {
+    // 2号页边，宽度为20，显示行号
+    setMarginTypeN(0, SC_MARGIN_NUMBER);
+    setMarginWidthN(0, 30);
+    setMarginBackN(SC_MARGIN_NUMBER, 0x001515A3);
+    setCodePage(SC_CP_UTF8);
+
+    // 当前行高亮
+    setCaretLineVisible(true);
+    setCaretLineBack(0xb0ffff);
+}
+
 QByteArray FileEditCtrl::GetAllText() {
 	auto length = textLength();
     QByteArray ba(length + 1, '\0');
@@ -79,9 +91,7 @@ void FileEditCtrl::Color(const QString & extName)
     styleSetFore(SCE_C_COMMENTLINE, 0x00008000);
     styleSetFore(SCE_C_COMMENTDOC, 0x00008000);
 
-    // 当前行高亮
-    setCaretLineVisible(true);
-    setCaretLineBack(0xb0ffff);
+    
 
     // tab键宽度
     setTabWidth(4);

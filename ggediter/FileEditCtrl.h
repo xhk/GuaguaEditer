@@ -7,6 +7,7 @@ class FileEditCtrl : public ScintillaEdit {
 	Q_OBJECT
 
 public:
+	void Init();
 	FileEditCtrl(QWidget *parent = 0);
 	virtual ~FileEditCtrl();
 
