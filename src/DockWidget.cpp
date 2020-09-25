@@ -49,8 +49,11 @@
 #include <QGuiApplication>
 #include <QScreen>
 #include <QWindow>
-#include <qmimedata>
-#include <qevent.h>
+#include <QMimeData>
+#include <QEvent>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QUrl>
 
 #include "DockContainerWidget.h"
 #include "DockAreaWidget.h"

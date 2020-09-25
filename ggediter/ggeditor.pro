@@ -18,11 +18,13 @@ adsBuildStatic {
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+    LangModule.cpp \
     main.cpp \
     mainwindow.cpp \
     FileEditCtrl.cpp
 
 HEADERS += \
+    LangModule.h \
     mainwindow.h \
     FileEditCtrl.h
 

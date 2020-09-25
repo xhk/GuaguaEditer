@@ -45,7 +45,10 @@
 #include <QSettings>
 #include <QMenu>
 #include <QApplication>
-#include <qmimedata>
+#include <QMimeData>
+#include <QDragEnterEvent>
+#include <QDropEvent>
+#include <QUrl>
 
 #include "FloatingDockContainer.h"
 #include "DockOverlay.h"

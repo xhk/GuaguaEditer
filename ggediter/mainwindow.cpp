@@ -179,27 +179,28 @@ void CMainWindow::on_actionOpen_triggered()
 
 void CMainWindow::Open(const QString& strFilePath)
 {
-    auto strPath = strFilePath;
-    QString fileProtoHeader = "file:///";
-    if (strPath.startsWith(fileProtoHeader)) {
-        strPath = strPath.mid(fileProtoHeader.length());
-    }
+    QUrl url(strFilePath);
+    auto strPath = url.toLocalFile();
     QFile file(strPath);
 
     if (file.open(QFile::ReadOnly))
     {
-        auto len = file.size();
-        //QByteArray arr = file.read(1024);
-        //qDebug() << arr;
-        char* buf = new char[len+1];
-        qint64 lineLength = file.read(buf, len);
-        buf[len] = '\0';
-        if (lineLength != -1)
-        {
-            NewEdit(buf, strPath);
-        }
-        delete[]buf;
+        auto str = QString("%1 Open Failed").arg(strPath);
+        QMessageBox::warning(NULL, "Error", str, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+        return ;
     }
+
+    auto len = file.size();
+    //QByteArray arr = file.read(1024);
+    //qDebug() << arr;
+    char* buf = new char[len+1];
+    qint64 lineLength = file.read(buf, len);
+    buf[len] = '\0';
+    if (lineLength != -1)
+    {
+        NewEdit(buf, strPath);
+    }
+    delete[]buf;
 }
 
 void CMainWindow::on_actionSave_triggered()

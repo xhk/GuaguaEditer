@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS = \
 	src \
-	ggediter \
-	scintilla
+        ggediter \
+    src/qtadvanceddocking.pro
 
 ggediter.depends = src
