@@ -182,6 +182,8 @@
     </QtUic>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileEditCtrl.cpp" />
+    <ClCompile Include="LangModule.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainwindow.cpp" />
   </ItemGroup>
@@ -210,6 +212,19 @@
   <ItemGroup>
     <QtUic Include="mainwindow.ui">
     </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="FileEditCtrl.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LangModule.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ggeditor.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\TextEdit.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

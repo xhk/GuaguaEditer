@@ -7,6 +7,7 @@
 #include "DockAreaWidget.h"
 #include "DockWidget.h"
 #include <ScintillaEdit.h>
+#include "FileEditCtrl.h"
 
 #include <unordered_map>
 
@@ -26,6 +27,7 @@ private slots:
     void on_actionNew_triggered();
     void on_actionOpen_triggered();
 
+
     void on_actionSave_triggered();
 
     void on_actionSave_as_triggered();
@@ -33,6 +35,13 @@ private slots:
     void on_actionSave_All_triggered();
 
     void trigerEncodingMenu(QAction* act);
+
+    // мов╖нд╪Ч
+    void OnDropUri(const QString& uri);
+
+protected:
+    void dragEnterEvent(QDragEnterEvent* event);
+    void dropEvent(QDropEvent* event);
 
 private:
     static const QString kTableTopLayout;
@@ -44,12 +53,15 @@ private:
     ads::CDockAreaWidget* StatusDockArea;
     ads::CDockWidget* TimelineDockWidget;
 
-    ScintillaEdit *_edit;
-
-    ScintillaEdit * NewEdit(const char *data, QString fileName);
+    
+    FileEditCtrl* NewEdit(const char *data, QString fileName);
 
     void LoadEncodingMenu();
 
     QMap<QString, int> _codePageMap;
+
+    FileEditCtrl* GetCurrentEdit();
+    void Open(const QString& strFilePath);
+
 };
 #endif // MAINWINDOW_H

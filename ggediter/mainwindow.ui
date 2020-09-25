@@ -11,10 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>GuaGuaEditer</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
+   <iconset>
     <normaloff>:/res/Text Edit.ico</normaloff>:/res/Text Edit.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget"/>
@@ -104,8 +104,6 @@
    </property>
   </action>
  </widget>
- <resources>
-  <include location="resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

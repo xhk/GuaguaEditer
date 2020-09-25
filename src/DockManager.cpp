@@ -45,6 +45,7 @@
 #include <QSettings>
 #include <QMenu>
 #include <QApplication>
+#include <qmimedata>
 
 #include "FloatingDockContainer.h"
 #include "DockOverlay.h"
@@ -463,6 +464,9 @@ CDockManager::CDockManager(QWidget *parent) :
 	{
 		MainWindow->setCentralWidget(this);
 	}
+
+	//支持拖放
+	setAcceptDrops(true);
 
 	d->ViewMenu = new QMenu(tr("Show View"), this);
 	d->DockAreaOverlay = new CDockOverlay(this, CDockOverlay::ModeDockAreaOverlay);
@@ -1058,6 +1062,32 @@ CDockWidget* CDockManager::focusedDockWidget() const
 	}
 }
 
+//当用户拖动文件到窗口部件上时候，就会触发dragEnterEvent事件
+void CDockManager::dragEnterEvent(QDragEnterEvent* event)
+{
+	qDebug() << "CDockManager::dragEnterEvent\n";
+	//如果为文件，则支持拖放
+	if (event->mimeData()->hasFormat("text/uri-list"))
+		event->acceptProposedAction();
+}
+
+//当用户放下这个文件后，就会触发dropEvent事件
+void CDockManager::dropEvent(QDropEvent* event)
+{
+	qDebug() << "CDockManager::dropEvent\n";
+	//注意：这里如果有多文件存在，意思是用户一下子拖动了多个文件，而不是拖动一个目录
+	//如果想读取整个目录，则在不同的操作平台下，自己编写函数实现读取整个目录文件名
+	QList<QUrl> urls = event->mimeData()->urls();
+	if (urls.isEmpty())
+		return;
+
+	//往文本框中追加文件名
+	foreach(QUrl url, urls) {
+		QString file_name = url.toLocalFile();
+		//Open(file_name);
+		emit uriDropped(file_name);
+	}
+}
 
 } // namespace ads
 

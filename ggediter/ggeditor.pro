@@ -3,10 +3,10 @@ ADS_OUT_ROOT = $${OUT_PWD}/../..
 QT       += core gui widgets
 
 TARGET = GGEditer
-DESTDIR = $${ADS_OUT_ROOT}/lib
+DESTDIR = $$PWD/../bin
 TEMPLATE = app
 CONFIG += c++1z
-CONFIG += debug_and_release
+CONFIG += debug
 adsBuildStatic {
     DEFINES += ADS_STATIC
 }
@@ -19,10 +19,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    FileEditCtrl.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    FileEditCtrl.h
 
 FORMS += \
     mainwindow.ui
@@ -30,14 +32,14 @@ FORMS += \
 RC_ICONS = res\TextEdit.ico
 
 LIBS += \
-    -L$${ADS_OUT_ROOT}/lib \
+    -L../lib \
     -lScintillaEdit
     
 
 # Dependency: AdvancedDockingSystem (shared)
 CONFIG(debug, debug|release){
     win32 {
-        LIBS += -lqtadvanceddockingd
+        LIBS += -lqtadvanceddocking
     }
     else:mac {
         LIBS += -lqtadvanceddocking_debug
@@ -51,13 +53,13 @@ else{
 }
 
 INCLUDEPATH += \
-    ../../src \
+    ../src \
     ../scintilla/include \
     ../scintilla/src \
     ../scintilla/qt/ScintillaEditBase \
     ../scintilla/qt/ScintillaEdit \
 
-DEPENDPATH += ../../src
+DEPENDPATH += ../src
 
 RESOURCES += \
     resources.qrc

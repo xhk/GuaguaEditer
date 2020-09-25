@@ -498,6 +498,8 @@ public slots:
 	void setDockWidgetFocused(CDockWidget* DockWidget);
 
 signals:
+	// ÎÄ¼þÍÏ·Å
+	void uriDropped(const QString& uri);
 	/**
 	 * This signal is emitted if the list of perspectives changed
 	 */
@@ -578,6 +580,10 @@ signals:
      * The focused dock widget is the one that is highlighted in the GUI
      */
     void focusedDockWidgetChanged(ads::CDockWidget* old, ads::CDockWidget* now);
+
+	protected:
+		void dragEnterEvent(QDragEnterEvent* event);
+		void dropEvent(QDropEvent* event);
 }; // class DockManager
 } // namespace ads
 //-----------------------------------------------------------------------------

@@ -22,6 +22,7 @@
 #include "DockAreaTabBar.h"
 #include "FloatingDockContainer.h"
 #include "DockComponentsFactory.h"
+#include "SciLexer.h"
 
 #define var auto
 
@@ -30,9 +31,9 @@ using namespace ads;
 
 CDockAreaWidget *area = nullptr;
 
-ScintillaEdit * CMainWindow::NewEdit(const char *data, QString fileName)
+FileEditCtrl* CMainWindow::NewEdit(const char *data, QString filePath)
 {
-    auto w = new ScintillaEdit();
+    auto w = new FileEditCtrl();
     // 2号页边，宽度为20，显示行号
     w->setMarginTypeN(2, SC_MARGIN_NUMBER);
     w->setMarginWidthN(2,20);
@@ -45,7 +46,7 @@ ScintillaEdit * CMainWindow::NewEdit(const char *data, QString fileName)
     auto dockMap = DockManager->dockWidgetsMap();
     QString newName = "";
     
-    if (fileName.isEmpty()) {
+    if (filePath.isEmpty()) {
         int index = 1;
 
         for (auto it = dockMap.begin(); it != dockMap.end(); ++it) {
@@ -59,13 +60,29 @@ ScintillaEdit * CMainWindow::NewEdit(const char *data, QString fileName)
         newName = QString("New %1").arg(index);
     }
     else {
-        newName = fileName;
+        QString strFileName = "";
+        var lastPos = filePath.lastIndexOf("/");
+        if (lastPos != -1) {
+            strFileName = filePath.mid(lastPos + 1);
+        }
+        else {
+            strFileName = filePath;
+        }
+
+        newName = strFileName;
     }
+    w->SetFileName(newName);
+    w->SetFilePath(filePath);
     
     CDockWidget* CentralDockWidget = new CDockWidget(newName);
     CentralDockWidget->setWidget(w);
-
+    w->dockWidget = CentralDockWidget;
     area = DockManager->addDockWidget(ads::CenterDockWidgetArea, CentralDockWidget,area);
+
+    connect(w, SIGNAL(uriDropped(const QString&)), this, SLOT(OnDropUri(const QString&)));
+
+   
+
 
     return w;
 }
@@ -77,12 +94,17 @@ CMainWindow::CMainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //支持拖放
+    setAcceptDrops(true);
+
     LoadEncodingMenu();
 
     CDockManager::setConfigFlag(CDockManager::OpaqueSplitterResize, true);
     CDockManager::setConfigFlag(CDockManager::XmlCompressionEnabled, false);
     CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
     DockManager = new CDockManager(this);
+
+    connect(DockManager, SIGNAL(uriDropped(const QString&)), this, SLOT(OnDropUri(const QString&)));
 
     NewEdit(NULL, "");
 
@@ -135,6 +157,8 @@ CMainWindow::CMainWindow(QWidget *parent)
     ui->menuView->addAction(PropertiesDockWidget->toggleViewAction());
     */
 
+    setWindowTitle("GuaGuaEditer");
+    
 }
 
 CMainWindow::~CMainWindow()
@@ -150,36 +174,67 @@ void CMainWindow::on_actionNew_triggered()
 
 void CMainWindow::on_actionOpen_triggered()
 {
-    QString strFilePath = QFileDialog::getOpenFileName(NULL, "标题", ".", "*.*");
-    QString strFileName = "";
-    QFile file(strFilePath); 
-    var lastPos = strFilePath.lastIndexOf("/");
-    if (lastPos != -1) {
-        strFileName = strFilePath.mid(lastPos+1);
+    QString strFilePath = QFileDialog::getOpenFileName(NULL, "Open", "", "*.*");
+
+    Open(strFilePath);
+
+}
+
+void CMainWindow::Open(const QString& strFilePath)
+{
+    auto strPath = strFilePath;
+    QString fileProtoHeader = "file:///";
+    if (strPath.startsWith(fileProtoHeader)) {
+        strPath = strPath.mid(fileProtoHeader.length());
     }
-    else {
-        strFileName = strFilePath;
-    }
+    QFile file(strPath);
 
     if (file.open(QFile::ReadOnly))
     {
         auto len = file.size();
         //QByteArray arr = file.read(1024);
-            //qDebug() << arr;
-        char *buf = new char[len];
+        //qDebug() << arr;
+        char* buf = new char[len+1];
         qint64 lineLength = file.read(buf, len);
+        buf[len] = '\0';
         if (lineLength != -1)
         {
-            NewEdit(buf, strFileName);
+            NewEdit(buf, strPath);
         }
         delete[]buf;
     }
-
 }
 
 void CMainWindow::on_actionSave_triggered()
 {
+    var edit = GetCurrentEdit();
+    if (!edit) {
+        return;
+    }
 
+    var arr = edit->GetAllText();
+    QString strFilePath = edit->GetFilePath();
+    if (strFilePath.isEmpty()) {
+        // new file
+        strFilePath = QFileDialog::getSaveFileName(this, "Save", "", "*.*");
+    }
+
+    if (strFilePath.isEmpty()) {
+        return;
+    }
+
+    edit->SetFilePath(strFilePath);
+
+    QFile file(strFilePath);
+    if (!file.open(QFile::WriteOnly)) {
+        QString tip = edit->GetFilePath() + "open faild!";
+        qDebug() << edit->GetFilePath() << "open faild!\n";
+        QMessageBox::warning(this, "save error", tip, QMessageBox::Ok);
+        return;
+    }
+
+    file.write(arr);
+    file.close();
 }
 
 void CMainWindow::on_actionSave_as_triggered()
@@ -231,10 +286,50 @@ void CMainWindow::trigerEncodingMenu(QAction* act)
 
     var dockWidget = DockManager->focusedDockWidget();
     var widget = dockWidget->widget();
-    var edit = dynamic_cast<ScintillaEdit*>(widget);
+    var edit = dynamic_cast<FileEditCtrl*>(widget);
     if (edit) {
         edit->setCodePage(it.value());
     }
     act->setCheckable(true);
     act->setChecked(true);
+}
+
+FileEditCtrl* CMainWindow::GetCurrentEdit()
+{
+    var dockWidget = DockManager->focusedDockWidget();
+    var widget = dockWidget->widget();
+    var edit = dynamic_cast<FileEditCtrl*>(widget);
+    if (edit && edit->focus()) {
+        return edit;
+    }
+     
+    return nullptr;
+}
+
+//当用户拖动文件到窗口部件上时候，就会触发dragEnterEvent事件
+void CMainWindow::dragEnterEvent(QDragEnterEvent* event)
+{
+    //如果为文件，则支持拖放
+    if (event->mimeData()->hasFormat("text/uri-list"))
+        event->acceptProposedAction();
+}
+
+//当用户放下这个文件后，就会触发dropEvent事件
+void CMainWindow::dropEvent(QDropEvent* event)
+{
+    //注意：这里如果有多文件存在，意思是用户一下子拖动了多个文件，而不是拖动一个目录
+    //如果想读取整个目录，则在不同的操作平台下，自己编写函数实现读取整个目录文件名
+    QList<QUrl> urls = event->mimeData()->urls();
+    if (urls.isEmpty())
+        return;
+
+    //往文本框中追加文件名
+    foreach(QUrl url, urls) {
+        QString file_name = url.toLocalFile();
+        Open(file_name);
+    }
+}
+
+void CMainWindow::OnDropUri(const QString& uri) {
+    Open(uri);
 }

@@ -583,6 +583,10 @@ signals:
      * The features parameter gives the new value of the property.
      */
     void featuresChanged(ads::CDockWidget::DockWidgetFeatures features);
+
+    protected:
+        void dragEnterEvent(QDragEnterEvent* event);
+        void dropEvent(QDropEvent* event);
 }; // class DockWidget
 }
  // namespace ads

@@ -1,0 +1,163 @@
+{
+  "langs": [
+    {
+      "name": "cpp",
+      "ext": [ "h", "hh", "hpp", "hxx", "c", "cpp", "cxx", "cc", "ino" ],
+      "commentLine": "//",
+      "commentStart": "/*",
+      "commentEnd": "*/",
+      "keywords": [
+        "alignof and and_eq bitand bitor break case catch compl const_cast continue default delete do dynamic_cast else false for goto if namespace new not not_eq nullptr operator or or_eq reinterpret_cast return sizeof static_assert static_cast switch this throw true try typedef typeid using while xor xor_eq NULL"
+      ],
+      "types": [
+        "alignas asm auto bool char char16_t char32_t class clock_t const constexpr decltype double enum explicit export extern final float friend inline int int8_t int16_t int32_t int64_t int_fast8_t int_fast16_t int_fast32_t int_fast64_t intmax_t intptr_t long mutable noexcept override private protected ptrdiff_t public register short signed size_t ssize_t static struct template thread_local time_t typename uint8_t uint16_t uint32_t uint64_t uint_fast8_t uint_fast16_t uint_fast32_t uint_fast64_t uintmax_t uintptr_t union unsigned virtual void volatile wchar_t"
+      ]
+    },
+    {
+      "name": "cs",
+      "ext": [ "cs" ],
+      "commentLine": "//",
+      "commentStart": "/*",
+      "commentEnd": "*/",
+      "keywords": [
+        "abstract add alias as ascending async await base break case catch checked continue default delegate descending do dynamic else event explicit extern false finally fixed for foreach from get global goto group if implicit in interface internal into is join let lock namespace new null object operator orderby out override params partial private protected public readonly ref remove return sealed select set sizeof stackalloc switch this throw true try typeof unchecked unsafe using value virtual where while yield"
+      ],
+      "types": [
+        "bool byte char class const decimal double enum float int long sbyte short static string struct uint ulong ushort var void"
+      ]
+    },
+    {
+      "name": "css",
+      "ext": [ "css" ],
+      "commentLine": "",
+      "commentStart": "/*",
+      "commentEnd": "*/",
+      "keywords": [
+        "-khtml-background-clip -khtml-background-origin -khtml-background-size -khtml-border-bottom-left-radius -khtml-border-bottom-right-radius -khtml-border-radius -khtml-border-top-left-radius -khtml-border-top-right-radius -khtml-opacity -moz-animation -moz-animation-delay -moz-animation-direction -moz-animation-duration -moz-animation-fill-mode -moz-animation-iteration-count -moz-animation-name -moz-animation-play-state -moz-animation-timing-function -moz-appearance -moz-background-clip -moz-background-inline-policy -moz-background-origin -moz-background-size -moz-binding -moz-border-bottom-colors -moz-border-end -moz-border-end-color -moz-border-end-style -moz-border-end-width -moz-border-image -moz-border-left-colors -moz-border-radius -moz-border-radius-bottomleft -moz-border-radius-bottomright -moz-border-radius-topleft -moz-border-radius-topright -moz-border-right-colors -moz-border-start -moz-border-start-color -moz-border-start-style -moz-border-start-width -moz-border-top-colors -moz-box-align -moz-box-direction -moz-box-flex -moz-box-flex-group -moz-box-flexgroup -moz-box-ordinal-group -moz-box-orient -moz-box-pack -moz-box-shadow -moz-box-sizing -moz-column-count -moz-column-gap -moz-column-rule -moz-column-rule-color -moz-column-rule-style -moz-column-rule-width -moz-column-width -moz-float-edge -moz-force-broken-image-icon -moz-image-region -moz-linear-gradient -moz-margin-end -moz-margin-start -moz-opacity -moz-outline -moz-outline-color -moz-outline-offset -moz-outline-radius -moz-outline-radius-bottomleft -moz-outline-radius-bottomright -moz-outline-radius-topleft -moz-outline-radius-topright -moz-outline-style -moz-outline-width -moz-padding-end -moz-padding-start -moz-radial-gradient -moz-stack-sizing -moz-text-decoration-color -moz-text-decoration-line -moz-text-decoration-style -moz-transform -moz-transform-origin -moz-transition -moz-transition-delay -moz-transition-duration -moz-transition-property -moz-transition-timing-function -moz-user-focus -moz-user-input -moz-user-modify -moz-user-select -moz-window-shadow -ms-filter -ms-transform -ms-transform-origin -o-transform -webkit-animation -webkit-animation-delay -webkit-animation-direction -webkit-animation-duration -webkit-animation-fill-mode -webkit-animation-iteration-count -webkit-animation-name -webkit-animation-play-state -webkit-animation-timing-function -webkit-appearance -webkit-backface-visibility -webkit-background-clip -webkit-background-composite -webkit-background-origin -webkit-background-size -webkit-border-bottom-left-radius -webkit-border-bottom-right-radius -webkit-border-horizontal-spacing -webkit-border-image -webkit-border-radius -webkit-border-top-left-radius -webkit-border-top-right-radius -webkit-border-vertical-spacing -webkit-box-align -webkit-box-direction -webkit-box-flex -webkit-box-flex-group -webkit-box-lines -webkit-box-ordinal-group -webkit-box-orient -webkit-box-pack -webkit-box-reflect -webkit-box-shadow -webkit-box-sizing -webkit-column-break-after -webkit-column-break-before -webkit-column-break-inside -webkit-column-count -webkit-column-gap -webkit-column-rule -webkit-column-rule-color -webkit-column-rule-style -webkit-column-rule-width -webkit-column-width -webkit-columns -webkit-dashboard-region -webkit-font-smoothing -webkit-gradient -webkit-line-break -webkit-linear-gradient -webkit-margin-bottom-collapse -webkit-margin-collapse -webkit-margin-start -webkit-margin-top-collapse -webkit-marquee -webkit-marquee-direction -webkit-marquee-increment -webkit-marquee-repetition -webkit-marquee-speed -webkit-marquee-style -webkit-mask -webkit-mask-attachment -webkit-mask-box-image -webkit-mask-clip -webkit-mask-composite -webkit-mask-image -webkit-mask-origin -webkit-mask-position -webkit-mask-position-x -webkit-mask-position-y -webkit-mask-repeat -webkit-mask-size -webkit-nbsp-mode -webkit-padding-start -webkit-perspective -webkit-perspective-origin -webkit-radial-gradient -webkit-rtl-ordering -webkit-tap-highlight-color -webkit-text-fill-color -webkit-text-security -webkit-text-size-adjust -webkit-text-stroke -webkit-text-stroke-color -webkit-text-stroke-width -webkit-touch-callout -webkit-transform -webkit-transform-origin -webkit-transform-origin-x -webkit-transform-origin-y -webkit-transform-origin-z -webkit-transform-style -webkit-transition -webkit-transition-delay -webkit-transition-duration -webkit-transition-property -webkit-transition-timing-function -webkit-user-drag -webkit-user-modify -webkit-user-select align-content align-items align-self alignment-adjust alignment-baseline all animation animation-delay animation-direction animation-duration animation-fill-mode animation-iteration-count animation-name animation-play-state animation-timing-function appearance azimuth backface-visibility background background-attachment background-blend-mode background-break background-clip background-color background-image background-origin background-position background-repeat background-size baseline-shift binding bleed bookmark-label bookmark-level bookmark-state bookmark-target border border-bottom border-bottom-color border-bottom-left-radius border-bottom-right-radius border-bottom-style border-bottom-width border-collapse border-color border-image border-image-outset border-image-repeat border-image-slice border-image-source border-image-width border-left border-left-color border-left-style border-left-width border-radius border-right border-right-color border-right-style border-right-width border-spacing border-style border-top border-top-color border-top-left-radius border-top-right-radius border-top-style border-top-width border-width bottom box-align box-decoration-break box-direction box-flex box-flex-group box-lines box-ordinal-group box-orient box-pack box-shadow box-sizing break-after break-before break-inside caption-side clear clip color color-profile column-count column-fill column-gap column-rule column-rule-color column-rule-style column-rule-width column-span column-width columns content counter-increment counter-reset crop cue cue-after cue-before cursor direction display dominant-baseline drop-initial-after-adjust drop-initial-after-align drop-initial-before-adjust drop-initial-before-align drop-initial-size drop-initial-value elevation empty-cells filter fit fit-position flex flex-basis flex-direction flex-flow flex-grow flex-shrink flex-wrap float float-offset font font-effect font-emphasize font-family font-size font-size-adjust font-stretch font-style font-variant font-weight grid-columns grid-rows hanging-punctuation height hyphenate-after hyphenate-before hyphenate-character hyphenate-lines hyphenate-resource hyphens icon image-orientation image-rendering image-resolution inline-box-align justify-content left letter-spacing line-height line-stacking line-stacking-ruby line-stacking-shift line-stacking-strategy list-style list-style-image list-style-position list-style-type margin margin-bottom margin-left margin-right margin-top mark mark-after mark-before marker-offset marks marquee-direction marquee-play-count marquee-speed marquee-style max-height max-width min-height min-width move-to nav-down nav-index nav-left nav-right nav-up opacity order orphans outline outline-color outline-offset outline-style outline-width overflow overflow-style overflow-x overflow-y padding padding-bottom padding-left padding-right padding-top page page-break-after page-break-before page-break-inside page-policy pause pause-after pause-before perspective perspective-origin phonemes pitch pitch-range play-during position presentation-level punctuation-trim quotes rendering-intent resize rest rest-after rest-before richness right rotation rotation-point ruby-align ruby-overhang ruby-position ruby-span size speak speak-header speak-numeral speak-punctuation speech-rate stress string-set tab-size table-layout target target-name target-new target-position text-align text-align-last text-decoration text-decoration-color text-decoration-line text-decoration-style text-emphasis text-height text-indent text-justify text-outline text-overflow text-shadow text-transform text-wrap top transform transform-origin transform-style transition transition-delay transition-duration transition-property transition-timing-function unicode-bidi vertical-align visibility voice-balance voice-duration voice-family voice-pitch voice-pitch-range voice-rate voice-stress voice-volume volume white-space white-space-collapse widows width word-break word-spacing word-wrap z-index",
+        "active after before check checked disabled empty enabled first first-child first-letter first-line first-of-type focus hover indeterminate invalid lang last-child last-of-type left link not nth-child nth-last-child nth-of-type nth-last-of-type only-child only-of-type optional read-only read-write required right root selection target valid visited"
+      ],
+      "types": [
+        "bool byte char class const decimal double enum float int long sbyte short static string struct uint ulong ushort var void"
+      ]
+    },
+    {
+      "name": "html",
+      "ext": [ "html htm shtml shtm xhtml xht hta" ],
+      "commentLine": "",
+      "commentStart": "<!--",
+      "commentEnd": "-->",
+      "keywords": [
+        "!doctype a abbr accept accept-charset accesskey acronym action address align alink alt applet archive area article aside async audio autocomplete autofocus axis b background base basefont bdi bdo bgcolor bgsound big blink blockquote body border br button canvas caption cellpadding cellspacing center char charoff charset checkbox checked cite class classid clear code codebase codetype col colgroup color cols colspan command compact content contenteditable contextmenu coords data datafld dataformatas datalist datapagesize datasrc datetime dd declare defer del details dfn dialog dir disabled div dl draggable dropzone dt element em embed enctype event face fieldset figcaption figure file font footer for form formaction formenctype formmethod formnovalidate formtarget frame frameborder frameset h1 h2 h3 h4 h5 h6 head header headers height hgroup hidden hr href hreflang hspace html http-equiv i id iframe image img input ins isindex ismap kbd keygen label lang language leftmargin legend li link list listing longdesc main manifest map marginheight marginwidth mark marquee max maxlength media menu menuitem meta meter method min multicol multiple name nav nobr noembed noframes nohref noresize noscript noshade novalidate nowrap object ol onabort onafterprint onautocomplete onautocompleteerror onbeforeonload onbeforeprint onblur oncancel oncanplay oncanplaythrough onchange onclick onclose oncontextmenu oncuechange ondblclick ondrag ondragend ondragenter ondragleave ondragover ondragstart ondrop ondurationchange onemptied onended onerror onfocus onhashchange oninput oninvalid onkeydown onkeypress onkeyup onload onloadeddata onloadedmetadata onloadstart onmessage onmousedown onmouseenter onmouseleave onmousemove onmouseout onmouseover onmouseup onmousewheel onoffline ononline onpagehide onpageshow onpause onplay onplaying onpointercancel onpointerdown onpointerenter onpointerleave onpointerlockchange onpointerlockerror onpointermove onpointerout onpointerover onpointerup onpopstate onprogress onratechange onreadystatechange onredo onreset onresize onscroll onseeked onseeking onselect onshow onsort onstalled onstorage onsubmit onsuspend ontimeupdate ontoggle onundo onunload onvolumechange onwaiting optgroup option output p param password pattern picture placeholder plaintext pre profile progress prompt public q radio readonly rel required reset rev reversed role rows rowspan rp rt rtc ruby rules s samp sandbox scheme scope scoped script seamless section select selected shadow shape size sizes small source spacer span spellcheck src srcdoc standby start step strike strong style sub submit summary sup svg svg:svg tabindex table target tbody td template text textarea tfoot th thead time title topmargin tr track tt type u ul usemap valign value valuetype var version video vlink vspace wbr width xml xmlns xmp"
+      ],
+      "types": [
+        ""
+      ]
+    },
+    {
+      "name": "ini",
+      "ext": [ "ini inf url wer" ],
+      "commentLine": ";",
+      "commentStart": "",
+      "commentEnd": "",
+      "keywords": [
+        ""
+      ],
+      "types": [
+        ""
+      ]
+    },
+    {
+      "name": "json",
+      "ext": [ "json" ],
+      "commentLine": "",
+      "commentStart": "",
+      "commentEnd": "",
+      "keywords": [
+        "false null true"
+      ],
+      "types": [
+        "@id @context @type @value @language @container @list @set @reverse @index @base @vocab @graph"
+      ]
+    },
+    {
+      "name": "java",
+      "ext": [ "java" ],
+      "commentLine": "//",
+      "commentStart": "/*",
+      "commentEnd": "*/",
+      "keywords": [
+        "instanceof assert if else switch case default break goto return for while do continue new throw throws try catch finally this super extends implements import true false null"
+      ],
+      "types": [
+        "package transient strictfp void char short int long double float const static volatile byte boolean class interface native private protected public final abstract synchronized enum"
+      ]
+    },
+    {
+      "name": "javascript",
+      "ext": [ "js jsm jsx ts tsx" ],
+      "commentLine": "//",
+      "commentStart": "/*",
+      "commentEnd": "*/",
+      "keywords": [
+        "abstract async await boolean break byte case catch char class const continue debugger default delete do double else enum export extends final finally float for function goto if implements import in instanceof int interface let long native new null of package private protected public return short static super switch synchronized this throw throws transient try typeof var void volatile while with true false prototype yield",
+        "alert all anchor anchors area assign blur button checkbox clearInterval clearTimeout clientInformation close closed confirm constructor crypto decodeURI decodeURIComponent defaultStatus document element elements embed embeds encodeURI encodeURIComponent escape event fileUpload focus form forms frame innerHeight innerWidth layer layers link location mimeTypes navigate navigator frames frameRate hidden history image images offscreenBuffering onblur onclick onerror onfocus onkeydown onkeypress onkeyup onmouseover onload onmouseup onmousedown onsubmit open opener option outerHeight outerWidth packages pageXOffset pageYOffset parent parseFloat parseInt password pkcs11 plugin prompt propertyIsEnum radio reset screenX screenY scroll secure select self setInterval setTimeout status submit taint text textarea top unescape untaint window"
+      ],
+      "types": [
+        "Array Date eval hasOwnProperty Infinity isFinite isNaN isPrototypeOf Math NaN Number Object prototype String toString undefined valueOf"
+      ]
+    },
+    {
+      "name": "python",
+      "ext": [ "py", "pyw" ],
+      "commentLine": "#",
+      "commentStart": "",
+      "commentEnd": "",
+      "keywords": [
+        "and as assert async await break class continue def del elif else except finally for from global if import in is lambda nonlocal not or pass raise return try while with yield",
+        "ArithmeticError AssertionError AttributeError BaseException BlockingIOError BrokenPipeError BufferError BytesWarning ChildProcessError ConnectionAbortedError ConnectionError ConnectionRefusedError ConnectionResetError DeprecationWarning EOFError Ellipsis EnvironmentError Exception False FileExistsError FileNotFoundError FloatingPointError FutureWarning GeneratorExit IOError ImportError ImportWarning IndentationError IndexError InterruptedError IsADirectoryError KeyError KeyboardInterrupt LookupError MemoryError ModuleNotFoundError NameError None NotADirectoryError NotImplemented NotImplementedError OSError OverflowError PendingDeprecationWarning PermissionError ProcessLookupError RecursionError ReferenceError ResourceWarning RuntimeError RuntimeWarning StopAsyncIteration StopIteration SyntaxError SyntaxWarning SystemError SystemExit TabError TimeoutError True TypeError UnboundLocalError UnicodeDecodeError UnicodeEncodeError UnicodeError UnicodeTranslateError UnicodeWarning UserWarning ValueError Warning WindowsError ZeroDivisionError abs all any ascii bin bool breakpoint bytearray bytes callable chr classmethod compile complex copyright credits delattr dict dir divmod enumerate eval exec exit filter float format frozenset getattr globals hasattr hash help hex id input int isinstance issubclass iter len license list locals map max memoryview min next object oct open ord pow print property quit range repr reversed round set setattr slice sorted staticmethod str sum super tuple type vars zip"
+      ],
+      "types": [
+        
+      ]
+    },
+    {
+      "name": "vue",
+      "ext": [ "vue" ],
+      "commentLine": "//",
+      "commentStart": "/*",
+      "commentEnd": "*/",
+      "keywords": [
+        "false null true"
+      ],
+      "types": [
+        "@id @context @type @value @language @container @list @set @reverse @index @base @vocab @graph"
+      ]
+    },
+    {
+      "name": "sql",
+      "ext": [ "sql" ],
+      "commentLine": "--",
+      "commentStart": "/*",
+      "commentEnd": "*/",
+      "keywords": [
+        "abs absolute access acos add add_months adddate admin after aggregate all allocate alter and any app_name applock_mode applock_test are array as asc ascii asin assemblyproperty assertion asymkey_id at atan atn2 audit authid authorization autonomous_transaction avg backup before begin benchmark between bfilename bin binary_checksum bit_and bit_count bit_or body both breadth break browse bulk by call cascade cascaded case cast catalog catch ceil ceiling cert_id certproperty character charindex chartorowid check checkpoint checksum checksum_agg chr class clause close cluster clustered coalesce col_length col_name collate collation collect column columnproperty columns_updated comment commit completion compress compute concat concat_ws connect connection connectionproperty constant constraint constraints constructorcreate contains containsable containstable context_info continue conv convert corr corresponding cos cot count count_big covar_pop covar_samp create cross cube cume_dist current current_date current_path current_request_id current_role current_time current_timestamp current_user currval cursor_status cycle data database database_principal_id databasepropertyex datalength date_add date_format date_sub dateadd datediff datefirst dateformat datename datepart db_id db_name dbcc deallocate declare decode decryptbyasmkey decryptbycert decryptbykey decryptbykeyautocert decryptbypassphrase default deferrable deferred degrees delete dense_rank deny depth deref desc describe descriptor destroy destructor deterministic diagnostics dictionary difference disconnect disk distinct distributed do domain drop dump dynamic each else elsif empth encode encrypt encryptbyasmkey encryptbycert encryptbykey encryptbypassphrase end end-exec equals errlvl error_line error_message error_number error_procedure error_severity error_state escape eventdata every except exception exclusive exec execute exists exit exp export_set extends external extract false fetch file file_id file_idex file_name filegroup_id filegroup_name filegroupproperty fileproperty fillfactor first first_value floor fn_virtualfilestats for forall foreign format formatmessage found freetext freetexttable from from_days full fulltextcatalog fulltextcatalogproperty fulltextservice fulltextserviceproperty function general get get_filestream_transaction_context get_lock getansinull getdate getutcdate global go goto grant greatest group grouping grouping_id has_perms_by_name hashbytes having heap hex hextoraw holdlock host host_id host_name hour ident_current ident_incr ident_seed identified identity identity_insert identitycol if ifnull ignore immediate in include increment index index_col indexkey_property indexproperty indicator initcap initial initialize initially inner inout input insert instr instrb interface intersect into is is_member is_null is_numeric is_srvrolemember isdate isnull isnumeric isolation iterate java join key key_guid key_id kill lag language large last last_day last_value lateral lcase lead leading least left len length lengthb less level like limit limited lineno ln load local localtime localtimestamp locator lock log log10 loop lower lpad ltrim make_ref map match max maxextents merge mid min min_active_rowversion minus minute mlslabel mod mode modifies modify module month months_between names national natural naturaln new new_time newid newsequentialid next next_day nextval no noaudit nocheck nocompress nocopy nonclustered none not nowait ntile null nullif number_base nvl nvl2 object object_definition object_id object_name object_property object_schema_name objectproperty objectpropertyex ocirowid oct of off offline offsets old on online only opaque open opendatasource openquery openrowset openxml operation operator option or ord order ordinalityorganization original_db_name original_login others out outer output over package pad parameter parameters parsename partial partition path pathname patindex pctfree percent percent_rank permissions pi pivot plan pls_integer positive positiven postfix pow power pragma prefix preorder prepare preserve primary print prior private privileges proc procedure public publishingservername pwdcompare pwdencrypt quotename radians raise raiserror rand range rank ratio_to_export rawtohex read reads readtext reconfigure record recursive ref references referencing reftohex relative release release_lock rename repeat replace replicate replication resource restore restrict result return returns reverse revert revoke right rollback rollup round routine row row_number rowcount rowcount_big rowguidcol rowidtochar rowlabel rownum rows rowtype rpad rtrim rule save savepoint schema schema_id schema_name scope scope_identity scroll search second section securityaudit seddev_samp select separate sequence serverproperty session session_user set sets setuser share shutdown sign signbyasymkey signbycert sin sinh size some soundex sp_helplanguage space specific specifictype sql sql_variant_property sqlcode sqlerrm sqlexception sqlstate sqlwarning sqrt square start state statement static statistics stats_date std stddev stdev stdev_pop stdevp str strcmp structure stuff subdate substr substrb substring substring_index subtype successful sum suser_id suser_name suser_sid suser_sname switchoffset synonym sys_context sys_guid sysdate sysdatetime sysdatetimeoffset system_user sysutcdatetime table tablesample tan tanh temporary terminate textptr textsize textvalid than then timezone_abbr timezone_hour timezone_minute timezone_region to to_char to_date to_days to_number to_single_byte todatetimeoffset top trailing tran transaction translate translation treat trigger trigger_nestlevel trim true trunc truncate try tsequal type type_id type_name typeproperty ucase uid under unicode union unique unknown unnest unpivot update updatetext upper usage use user user_id user_name userenv using validate value values var var_pop var_samp variable variance varp varying verifysignedbyasmkey verifysignedbycert view vsize waitfor when whenever where while with without work write writetext xact_state zone"
+      ],
+      "types": [
+        "bfile bigint binary binary_integer bit blob bool boolean char char_base clob cursor date datetime datetime2 datetimeoffset day dec decimal double enum float hierarchyid image int integer interval long longblob longtext mediumblob mediumint mediumtext money nchar nclob ntext number numeric nvarchar precision raw real rowid smalldatetime smallint smallmoney sql_variant text time timestamp tinyblob tinyint tinytext uniqueidentifier urowid varbinary varchar varchar2 xml year"
+      ]
+    },
+    {
+      "name": "xml",
+      "ext": [ "xml xaml xsl xslt xsd xul kml svg mxml xsml wsdl xlf xliff xbl sxbl sitemap gml gpx plist vcproj vcxproj csproj csxproj vbproj dbproj" ],
+      "commentLine": "",
+      "commentStart": "<!--",
+      "commentEnd": "-->",
+      "keywords": [
+        ""
+      ],
+      "types": [
+        ""
+      ]
+    }
+  ]
+}
