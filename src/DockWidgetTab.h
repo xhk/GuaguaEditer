@@ -159,6 +159,8 @@ public:
 	 */
 	void updateStyle();
 
+    void setFontColor(const QString & color);
+
 public slots:
 	virtual void setVisible(bool visible) override;
 

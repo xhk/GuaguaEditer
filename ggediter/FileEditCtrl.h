@@ -35,6 +35,8 @@ public:
 		return _filePath.isEmpty();
 	}
 
+    void Save();
+
 	ads::CDockWidget* dockWidget = nullptr;
 private:
 	
@@ -52,5 +54,10 @@ private:
 	QString _filePath;
 	QString _fileName;
 
+    // have not saved content
+    bool _isChanging;
+
+public slots:
+    void OnContentChange();
 
 };

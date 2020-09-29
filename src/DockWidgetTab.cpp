@@ -186,6 +186,11 @@ struct DockWidgetTabPrivate
 		DragStartMousePosition = _this->mapFromGlobal(GlobalPos);
 	}
 
+    void setFontColor(const QString & color){
+        auto style = QString("QLabel{ color: %1 }").arg(color);
+        TitleLabel->setStyleSheet(style);
+    }
+
 };
 // struct DockWidgetTabPrivate
 
@@ -206,6 +211,7 @@ void DockWidgetTabPrivate::createLayout()
 	TitleLabel->setText(DockWidget->windowTitle());
 	TitleLabel->setObjectName("dockWidgetTabLabel");
 	TitleLabel->setAlignment(Qt::AlignCenter);
+
 	_this->connect(TitleLabel, SIGNAL(elidedChanged(bool)), SIGNAL(elidedChanged(bool)));
 
 
@@ -687,7 +693,9 @@ void CDockWidgetTab::updateStyle()
 	internal::repolishStyle(this, internal::RepolishDirectChildren);
 }
 
-
+void CDockWidgetTab::setFontColor(const QString &color){
+    d->setFontColor(color);
+}
 
 
 } // namespace ads

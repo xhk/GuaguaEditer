@@ -2,10 +2,14 @@
 #include "SciLexer.h"
 #include "LangModule.h"
 
+#include <QFile>
+#include <QFileDialog>
+#include <QMessageBox>
+
 FileEditCtrl::FileEditCtrl(QWidget *parent)
 	:ScintillaEdit(parent)
 {
-
+    connect(this, SIGNAL(notifyChange()), this, SLOT(OnContentChange));
 }
 
 FileEditCtrl::~FileEditCtrl() {
@@ -95,4 +99,36 @@ void FileEditCtrl::Color(const QString & extName)
 
     // tab¼ü¿í¶È
     setTabWidth(4);
+}
+
+void FileEditCtrl::OnContentChange(){
+    _isChanging = true;
+}
+
+void FileEditCtrl::Save()
+{
+    auto edit = this;
+    auto arr = edit->GetAllText();
+    QString strFilePath = edit->GetFilePath();
+    if (strFilePath.isEmpty()) {
+        // new file
+        strFilePath = QFileDialog::getSaveFileName(this, "Save", "", "*.*");
+    }
+
+    if (strFilePath.isEmpty()) {
+        return;
+    }
+
+    edit->SetFilePath(strFilePath);
+
+    QFile file(strFilePath);
+    if (!file.open(QFile::WriteOnly)) {
+        QString tip = edit->GetFilePath() + "open faild!";
+        qDebug() << edit->GetFilePath() << "open faild!\n";
+        QMessageBox::warning(this, "save error", tip, QMessageBox::Ok);
+        return;
+    }
+
+    file.write(arr);
+    file.close();
 }

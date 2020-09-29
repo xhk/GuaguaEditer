@@ -23,6 +23,7 @@
 #include "FloatingDockContainer.h"
 #include "DockComponentsFactory.h"
 #include "SciLexer.h"
+#include "WorkSpacke.h"
 
 #define var auto
 
@@ -30,6 +31,46 @@
 using namespace ads;
 
 CDockAreaWidget *area = nullptr;
+
+void CMainWindow::LoadWorkSpace(){
+    WorkSpace::Inst().Load();
+    auto & ws = WorkSpace::Inst();
+    CDockAreaWidget *fileArea = nullptr;
+    for (auto & prj : ws.projectList ) {
+        QTreeView* fileTree = new QTreeView();
+        //fileTree->setFrameShape(QFrame::NoFrame);
+        QFileSystemModel* fileModel = new QFileSystemModel(fileTree);
+        fileModel->setRootPath(prj.rootPath);
+        fileTree->setModel(fileModel);
+        CDockWidget* DataDockWidget = new CDockWidget("File system");
+        DataDockWidget->setWidget(fileTree);
+        DataDockWidget->resize(150, 100);
+        DataDockWidget->setMinimumSize(150, 100);
+        //DataDockWidget->setMaximumWidth(150);
+        fileArea = DockManager->addDockWidget(DockWidgetArea::LeftDockWidgetArea, DataDockWidget, fileArea);
+        //ui->menuView->addAction(DataDockWidget->toggleViewAction());
+
+        //fileArea->resize(200,800);
+
+
+    }
+
+    if(fileArea){
+        fileArea->setMaximumWidth(200);
+    }else{
+
+    }
+
+    // last time opened files
+    for(auto & of : ws.openedFileList){
+        Open(of.filePath);
+    }
+
+    if(ws.openedFileList.isEmpty()){
+        NewEdit(NULL, "");
+    }
+}
+
 
 FileEditCtrl* CMainWindow::NewEdit(const char *data, QString filePath)
 {
@@ -78,10 +119,27 @@ FileEditCtrl* CMainWindow::NewEdit(const char *data, QString filePath)
 
     connect(w, SIGNAL(uriDropped(const QString&)), this, SLOT(OnDropUri(const QString&)));
 
-   
+   // close event
+    connect(CentralDockWidget, SIGNAL(closed()), this, SLOT(OnEditerDockWidgetClose()));
 
+    _editerList.push_back(w);
 
     return w;
+}
+
+void CMainWindow::OnEditerDockWidgetClose(){
+    qDebug() << "editer close";
+    QObject *s = sender();
+    auto dw = (CDockWidget*)s;
+    auto editer = (FileEditCtrl*)dw->widget();
+    auto it = _editerList.begin();
+    for ( ;it!=_editerList.end();++it) {
+        if( editer == (*it)){
+            _editerList.erase(it);
+            break;
+        }
+    }
+
 }
 
 
@@ -103,7 +161,7 @@ CMainWindow::CMainWindow(QWidget *parent)
 
     connect(DockManager, SIGNAL(uriDropped(const QString&)), this, SLOT(OnDropUri(const QString&)));
 
-    NewEdit(NULL, "");
+    LoadWorkSpace();
 
     // Set central widget
     //QPlainTextEdit* w = new QPlainTextEdit();
@@ -113,21 +171,6 @@ CMainWindow::CMainWindow(QWidget *parent)
     //CentralDockArea->setAllowedAreas(DockWidgetArea::OuterDockAreas);
 
     // create other dock widgets
-    QTreeView* fileTree = new QTreeView();
-    fileTree->setFrameShape(QFrame::NoFrame);
-    /*QFileSystemModel* fileModel = new QFileSystemModel(fileTree);
-    fileModel->setRootPath(QDir::currentPath());
-    fileTree->setModel(fileModel);*/
-    CDockWidget* DataDockWidget = new CDockWidget("File system");
-    DataDockWidget->setWidget(fileTree);
-    DataDockWidget->resize(150, 100);
-    DataDockWidget->setMinimumSize(150, 100);
-    //DataDockWidget->setMaximumWidth(150);
-    auto* fileArea = DockManager->addDockWidget(DockWidgetArea::LeftDockWidgetArea, DataDockWidget);
-    ui->menuView->addAction(DataDockWidget->toggleViewAction());
-
-    //fileArea->resize(200,800);
-    fileArea->setMaximumWidth(200);
 
 
     /*
@@ -179,13 +222,12 @@ void CMainWindow::on_actionOpen_triggered()
 
 void CMainWindow::Open(const QString& strFilePath)
 {
-    QUrl url(strFilePath);
-    auto strPath = url.toLocalFile();
-    QFile file(strPath);
 
-    if (file.open(QFile::ReadOnly))
+    QFile file(strFilePath);
+
+    if (!file.open(QFile::ReadOnly))
     {
-        auto str = QString("%1 Open Failed").arg(strPath);
+        auto str = QString("%1 Open Failed").arg(strFilePath);
         QMessageBox::warning(NULL, "Error", str, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
         return ;
     }
@@ -198,7 +240,7 @@ void CMainWindow::Open(const QString& strFilePath)
     buf[len] = '\0';
     if (lineLength != -1)
     {
-        NewEdit(buf, strPath);
+        NewEdit(buf, strFilePath);
     }
     delete[]buf;
 }
@@ -210,29 +252,7 @@ void CMainWindow::on_actionSave_triggered()
         return;
     }
 
-    var arr = edit->GetAllText();
-    QString strFilePath = edit->GetFilePath();
-    if (strFilePath.isEmpty()) {
-        // new file
-        strFilePath = QFileDialog::getSaveFileName(this, "Save", "", "*.*");
-    }
-
-    if (strFilePath.isEmpty()) {
-        return;
-    }
-
-    edit->SetFilePath(strFilePath);
-
-    QFile file(strFilePath);
-    if (!file.open(QFile::WriteOnly)) {
-        QString tip = edit->GetFilePath() + "open faild!";
-        qDebug() << edit->GetFilePath() << "open faild!\n";
-        QMessageBox::warning(this, "save error", tip, QMessageBox::Ok);
-        return;
-    }
-
-    file.write(arr);
-    file.close();
+    edit->Save();
 }
 
 void CMainWindow::on_actionSave_as_triggered()
@@ -329,5 +349,20 @@ void CMainWindow::dropEvent(QDropEvent* event)
 }
 
 void CMainWindow::OnDropUri(const QString& uri) {
+    QUrl url(uri);
+    auto strPath = url.toLocalFile();
     Open(uri);
+}
+
+
+void CMainWindow::closeEvent(QCloseEvent * event)
+{
+    // check unsave editer
+    auto dockMap = DockManager->dockWidgetsMap();
+
+
+    auto op = QMessageBox::information(this, tr("Exit Tip"), tr("请先停止运行"), tr("确定"), tr("取消"), 0, 1);
+
+    // save worksapce
+
 }

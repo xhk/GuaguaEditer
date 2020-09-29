@@ -36,13 +36,14 @@ private slots:
 
     void trigerEncodingMenu(QAction* act);
 
-    // мов╖нд╪Ч
+    // drag drop file
     void OnDropUri(const QString& uri);
 
+    void OnEditerDockWidgetClose();
 protected:
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent* event);
-
+    void closeEvent(QCloseEvent* event);
 private:
     static const QString kTableTopLayout;
     static const QString kTableBottomLayout;
@@ -57,11 +58,13 @@ private:
     FileEditCtrl* NewEdit(const char *data, QString fileName);
 
     void LoadEncodingMenu();
+    void LoadWorkSpace();
 
     QMap<QString, int> _codePageMap;
 
     FileEditCtrl* GetCurrentEdit();
     void Open(const QString& strFilePath);
 
+    QVector<FileEditCtrl*> _editerList;
 };
 #endif // MAINWINDOW_H
