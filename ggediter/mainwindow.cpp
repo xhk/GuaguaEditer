@@ -30,29 +30,32 @@
 
 using namespace ads;
 
-CDockAreaWidget *area = nullptr;
+
+void CMainWindow::OpenFolder(const QString & dir)
+{
+    QTreeView* fileTree = new QTreeView();
+    //fileTree->setFrameShape(QFrame::NoFrame);
+    QFileSystemModel* fileModel = new QFileSystemModel(fileTree);
+    fileModel->setRootPath(dir);
+    fileTree->setModel(fileModel);
+    CDockWidget* DataDockWidget = new CDockWidget("File system");
+    DataDockWidget->setWidget(fileTree);
+    DataDockWidget->resize(150, 100);
+    DataDockWidget->setMinimumSize(150, 100);
+    //DataDockWidget->setMaximumWidth(150);
+    _lastFileArea = DockManager->addDockWidget(DockWidgetArea::LeftDockWidgetArea, DataDockWidget, _lastFileArea);
+    //ui->menuView->addAction(DataDockWidget->toggleViewAction());
+
+    //fileArea->resize(200,800);
+
+}
 
 void CMainWindow::LoadWorkSpace(){
     WorkSpace::Inst().Load();
     auto & ws = WorkSpace::Inst();
     CDockAreaWidget *fileArea = nullptr;
     for (auto & prj : ws.projectList ) {
-        QTreeView* fileTree = new QTreeView();
-        //fileTree->setFrameShape(QFrame::NoFrame);
-        QFileSystemModel* fileModel = new QFileSystemModel(fileTree);
-        fileModel->setRootPath(prj.rootPath);
-        fileTree->setModel(fileModel);
-        CDockWidget* DataDockWidget = new CDockWidget("File system");
-        DataDockWidget->setWidget(fileTree);
-        DataDockWidget->resize(150, 100);
-        DataDockWidget->setMinimumSize(150, 100);
-        //DataDockWidget->setMaximumWidth(150);
-        fileArea = DockManager->addDockWidget(DockWidgetArea::LeftDockWidgetArea, DataDockWidget, fileArea);
-        //ui->menuView->addAction(DataDockWidget->toggleViewAction());
-
-        //fileArea->resize(200,800);
-
-
+        OpenFolder(prj.rootPath);
     }
 
     if(fileArea){
@@ -75,12 +78,7 @@ void CMainWindow::LoadWorkSpace(){
 FileEditCtrl* CMainWindow::NewEdit(const char *data, QString filePath)
 {
     auto w = new FileEditCtrl();
-    w->Init();
 
-    if (data) {
-        w->setText(data);
-    }
-    
     auto dockMap = DockManager->dockWidgetsMap();
     QString newName = "";
     
@@ -115,7 +113,7 @@ FileEditCtrl* CMainWindow::NewEdit(const char *data, QString filePath)
     CDockWidget* CentralDockWidget = new CDockWidget(newName);
     CentralDockWidget->setWidget(w);
     w->dockWidget = CentralDockWidget;
-    area = DockManager->addDockWidget(ads::CenterDockWidgetArea, CentralDockWidget,area);
+    _lastEditArea = DockManager->addDockWidget(ads::CenterDockWidgetArea, CentralDockWidget,_lastEditArea);
 
     connect(w, SIGNAL(uriDropped(const QString&)), this, SLOT(OnDropUri(const QString&)));
 
@@ -123,6 +121,12 @@ FileEditCtrl* CMainWindow::NewEdit(const char *data, QString filePath)
     connect(CentralDockWidget, SIGNAL(closed()), this, SLOT(OnEditerDockWidgetClose()));
 
     _editerList.push_back(w);
+
+    w->Init();
+    if (data) {
+        w->setText(data);
+    }
+
 
     return w;
 }
@@ -149,10 +153,25 @@ CMainWindow::CMainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    _lastFileArea = nullptr;
+    _lastEditArea = nullptr;
     //支持拖放
     setAcceptDrops(true);
 
+    LoadFileMenu();
+
     LoadEncodingMenu();
+
+//    auto unDoAction = ui->menuEdit->addAction("UnDo", this, NULL, QKeySequence("Ctrl+Z"));
+    //auto reDoAction = ui->menuEdit->addAction("ReDo");
+    auto unDoAction = new QAction("UnDo", this);
+    auto reDoAction = new QAction("ReDo", this);
+    ui->menuEdit->addAction(unDoAction);
+    ui->menuEdit->addAction(reDoAction);
+
+    connect(ui->menuEdit, SIGNAL(triggered(QAction*)), this, SLOT(OnEditMenuTriggered(QAction*)));
+
+    
 
     CDockManager::setConfigFlag(CDockManager::OpaqueSplitterResize, true);
     CDockManager::setConfigFlag(CDockManager::XmlCompressionEnabled, false);
@@ -204,6 +223,24 @@ CMainWindow::CMainWindow(QWidget *parent)
 CMainWindow::~CMainWindow()
 {
     delete ui;
+}
+
+void CMainWindow::OnEditMenuTriggered(QAction *act){
+
+    auto edit = GetCurrentEdit();
+    if(!edit){
+        return;
+    }
+
+    auto actTxt = act->text();
+    if(actTxt == "UnDo"){
+        auto edit = GetCurrentEdit();
+        if(edit){
+            edit->undo();
+        }
+    }else if(actTxt == "ReDo") {
+        edit->redo();
+    }
 }
 
 
@@ -265,6 +302,14 @@ void CMainWindow::on_actionSave_All_triggered()
 
 }
 
+void CMainWindow::LoadFileMenu()
+{
+    auto action = ui->menuView->addAction("Open Folder");
+    action->setShortcut(QKeySequence("Ctrl+K,Ctrl+O"));
+    ui->menuView->addAction(action);
+    connect(ui->menuView, SIGNAL(triggered(QAction*)), this, SLOT(OnFileMenuTriggered(QAction *)));
+}
+
 void CMainWindow::LoadEncodingMenu()
 {
     struct Encoding {
@@ -312,6 +357,14 @@ void CMainWindow::trigerEncodingMenu(QAction* act)
     act->setChecked(true);
 }
 
+void CMainWindow::OnFileMenuTriggered(QAction *act){
+    auto actTxt = act->text();
+    if(actTxt == "Open Folder"){
+        auto dir = QFileDialog::getExistingDirectory();
+        OpenFolder(dir);
+    }
+}
+
 FileEditCtrl* CMainWindow::GetCurrentEdit()
 {
     var dockWidget = DockManager->focusedDockWidget();
@@ -351,7 +404,7 @@ void CMainWindow::dropEvent(QDropEvent* event)
 void CMainWindow::OnDropUri(const QString& uri) {
     QUrl url(uri);
     auto strPath = url.toLocalFile();
-    Open(uri);
+    Open(strPath);
 }
 
 

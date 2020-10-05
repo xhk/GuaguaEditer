@@ -6,6 +6,7 @@
 #include "DockManager.h"
 #include "DockAreaWidget.h"
 #include "DockWidget.h"
+
 #include <ScintillaEdit.h>
 #include "FileEditCtrl.h"
 
@@ -40,6 +41,9 @@ private slots:
     void OnDropUri(const QString& uri);
 
     void OnEditerDockWidgetClose();
+
+    void OnFileMenuTriggered(QAction *act);
+    void OnEditMenuTriggered(QAction *act);
 protected:
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent* event);
@@ -57,6 +61,7 @@ private:
     
     FileEditCtrl* NewEdit(const char *data, QString fileName);
 
+    void LoadFileMenu();
     void LoadEncodingMenu();
     void LoadWorkSpace();
 
@@ -64,7 +69,9 @@ private:
 
     FileEditCtrl* GetCurrentEdit();
     void Open(const QString& strFilePath);
-
+    void OpenFolder(const QString & dir);
     QVector<FileEditCtrl*> _editerList;
+    ads::CDockAreaWidget *_lastFileArea;
+    ads::CDockAreaWidget *_lastEditArea;
 };
 #endif // MAINWINDOW_H

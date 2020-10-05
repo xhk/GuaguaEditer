@@ -56,8 +56,12 @@ private:
 
     // have not saved content
     bool _isChanging;
+    int _changeTimes;
 
 public slots:
-    void OnContentChange();
+    void OnLinesAdded(int linesAdded);
+    void OnCharAdded(int ch);
+    void OnModified(int type, int position, int length, int linesAdded,
+                  const QByteArray &text, int line, int foldNow, int foldPrev);
 
 };

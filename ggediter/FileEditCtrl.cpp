@@ -6,10 +6,17 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
+#include "DockWidgetTab.h"
+
 FileEditCtrl::FileEditCtrl(QWidget *parent)
 	:ScintillaEdit(parent)
 {
-    connect(this, SIGNAL(notifyChange()), this, SLOT(OnContentChange));
+    connect(this, SIGNAL(linesAdded(int )), this, SLOT(OnLinesAdded(int )));
+    connect(this, SIGNAL(charAdded(int )), this, SLOT(OnCharAdded(int )));
+    connect(this, SIGNAL(modified(int , int , int , int ,
+                                  const QByteArray &, int , int , int )),
+            this, SLOT(OnModified(int , int , int , int ,
+                                  const QByteArray &, int , int , int )));
 }
 
 FileEditCtrl::~FileEditCtrl() {
@@ -26,6 +33,16 @@ void FileEditCtrl::Init() {
     // 当前行高亮
     setCaretLineVisible(true);
     setCaretLineBack(0xb0ffff);
+
+    auto tabWidget = (ads::CDockWidgetTab*)dockWidget->tabWidget();
+    if(IsNew()){
+        _isChanging = true;
+        tabWidget->setFontColor("red");
+    }else{
+        tabWidget->setFontColor("black");
+    }
+
+    _changeTimes = 0;
 }
 
 QByteArray FileEditCtrl::GetAllText() {
@@ -101,12 +118,52 @@ void FileEditCtrl::Color(const QString & extName)
     setTabWidth(4);
 }
 
-void FileEditCtrl::OnContentChange(){
-    _isChanging = true;
+
+void FileEditCtrl::OnLinesAdded(int linesAdded)
+{
+//    qDebug() << "FileEditCtrl::OnLinesAdded";
+//    if(!_isChanging){
+//        _isChanging = true;
+//        auto tabWidget = (ads::CDockWidgetTab*)dockWidget->tabWidget();
+//        tabWidget->setFontColor("red");
+//    }
+}
+
+void FileEditCtrl::OnCharAdded(int ch){
+//    qDebug() << "FileEditCtrl::OnCharAdded";
+//    if(!_isChanging){
+//        _isChanging = true;
+//        auto tabWidget = (ads::CDockWidgetTab*)dockWidget->tabWidget();
+//        tabWidget->setFontColor("red");
+//    }
+}
+
+void FileEditCtrl::OnModified(int type, int position, int length, int linesAdded,
+              const QByteArray &text, int line, int foldNow, int foldPrev)
+{
+    if( (type & SC_MOD_INSERTTEXT) || (type & SC_MOD_DELETETEXT)){
+        if(_changeTimes++>0){
+            qDebug() << "FileEditCtrl::OnModified";
+            if(!_isChanging){
+                _isChanging = true;
+                auto tabWidget = (ads::CDockWidgetTab*)dockWidget->tabWidget();
+                tabWidget->setFontColor("red");
+            }
+        }
+    }
+
 }
 
 void FileEditCtrl::Save()
 {
+    if(!_isChanging){
+        return;
+    }
+
+    _isChanging = false;
+    auto tabWidget = (ads::CDockWidgetTab*)dockWidget->tabWidget();
+    tabWidget->setFontColor("black");
+
     auto edit = this;
     auto arr = edit->GetAllText();
     QString strFilePath = edit->GetFilePath();
@@ -131,4 +188,6 @@ void FileEditCtrl::Save()
 
     file.write(arr);
     file.close();
+
+
 }
