@@ -1,5 +1,30 @@
 <RCC>
     <qresource prefix="/">
         <file>res/TextEdit.ico</file>
+        <file>res/folder_32px.png</file>
+        <file>res/FileIco/code_70x70.png</file>
+        <file>res/FileIco/c.ico</file>
+        <file>res/FileIco/html.ico</file>
+        <file>res/FileIco/react.ico</file>
+        <file>res/FileIco/ruby.ico</file>
+        <file>res/FileIco/java.ico</file>
+        <file>res/FileIco/sass.ico</file>
+        <file>res/FileIco/config.ico</file>
+        <file>res/FileIco/json.ico</file>
+        <file>res/FileIco/sql.ico</file>
+        <file>res/FileIco/cpp.ico</file>
+        <file>res/FileIco/less.ico</file>
+        <file>res/FileIco/typescript.ico</file>
+        <file>res/FileIco/csharp.ico</file>
+        <file>res/FileIco/markdown.ico</file>
+        <file>res/FileIco/vue.ico</file>
+        <file>res/FileIco/css.ico</file>
+        <file>res/FileIco/php.ico</file>
+        <file>res/FileIco/xml.ico</file>
+        <file>res/FileIco/default.ico</file>
+        <file>res/FileIco/powershell.ico</file>
+        <file>res/FileIco/yaml.ico</file>
+        <file>res/FileIco/go.ico</file>
+        <file>res/FileIco/python.ico</file>
     </qresource>
 </RCC>

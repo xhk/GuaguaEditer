@@ -44,6 +44,9 @@ private slots:
 
     void OnFileMenuTriggered(QAction *act);
     void OnEditMenuTriggered(QAction *act);
+
+    void OnClickedFile(const QString &filePath);
+    void OnDoubleClickedFile(const QString & filePath);
 protected:
     void dragEnterEvent(QDragEnterEvent* event);
     void dropEvent(QDropEvent* event);

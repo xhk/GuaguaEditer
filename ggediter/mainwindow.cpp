@@ -23,7 +23,8 @@
 #include "FloatingDockContainer.h"
 #include "DockComponentsFactory.h"
 #include "SciLexer.h"
-#include "WorkSpacke.h"
+#include "WorkSpace.h"
+#include "FileTreeView.h"
 
 #define var auto
 
@@ -33,20 +34,33 @@ using namespace ads;
 
 void CMainWindow::OpenFolder(const QString & dir)
 {
-    QTreeView* fileTree = new QTreeView();
+    QString displayName = "";
+    auto pos = dir.lastIndexOf("/");
+    if(pos == -1){
+        displayName = dir;
+    }else{
+        displayName = dir.mid(pos+1);
+    }
+
+    FileTreeView* fileTree = new FileTreeView(this);
+    fileTree->Load(dir);
     //fileTree->setFrameShape(QFrame::NoFrame);
-    QFileSystemModel* fileModel = new QFileSystemModel(fileTree);
-    fileModel->setRootPath(dir);
-    fileTree->setModel(fileModel);
-    CDockWidget* DataDockWidget = new CDockWidget("File system");
+
+    CDockWidget* DataDockWidget = new CDockWidget(displayName);
     DataDockWidget->setWidget(fileTree);
     DataDockWidget->resize(150, 100);
     DataDockWidget->setMinimumSize(150, 100);
-    //DataDockWidget->setMaximumWidth(150);
-    _lastFileArea = DockManager->addDockWidget(DockWidgetArea::LeftDockWidgetArea, DataDockWidget, _lastFileArea);
+    DataDockWidget->setMaximumWidth(200);
+    if(_lastFileArea == nullptr)
+        _lastFileArea = DockManager->addDockWidget(ads::LeftDockWidgetArea, DataDockWidget, _lastEditArea);
+    else
+        _lastFileArea = DockManager->addDockWidget(ads::CenterDockWidgetArea, DataDockWidget, _lastFileArea);
     //ui->menuView->addAction(DataDockWidget->toggleViewAction());
 
-    //fileArea->resize(200,800);
+    //_lastFileArea->resize(200,800);
+
+    connect(fileTree,SIGNAL(ClickFile(const QString &)), this, SLOT(OnClickedFile(const QString &)));
+    connect(fileTree,SIGNAL(DoubleClickFile(const QString &)), this, SLOT(OnDoubleClickedFile(const QString &)));
 
 }
 
@@ -180,6 +194,7 @@ CMainWindow::CMainWindow(QWidget *parent)
 
     connect(DockManager, SIGNAL(uriDropped(const QString&)), this, SLOT(OnDropUri(const QString&)));
 
+
     LoadWorkSpace();
 
     // Set central widget
@@ -252,6 +267,9 @@ void CMainWindow::on_actionNew_triggered()
 void CMainWindow::on_actionOpen_triggered()
 {
     QString strFilePath = QFileDialog::getOpenFileName(NULL, "Open", "", "*.*");
+    if(strFilePath.isEmpty()){
+        return ;
+    }
 
     Open(strFilePath);
 
@@ -417,5 +435,15 @@ void CMainWindow::closeEvent(QCloseEvent * event)
     auto op = QMessageBox::information(this, tr("Exit Tip"), tr("请先停止运行"), tr("确定"), tr("取消"), 0, 1);
 
     // save worksapce
+
+}
+
+void CMainWindow::OnClickedFile(const QString &filePath)
+{
+    Open(filePath);
+}
+
+void CMainWindow::OnDoubleClickedFile(const QString & filePath)
+{
 
 }
