@@ -351,14 +351,14 @@ void setButtonIcon(QAbstractButton* Button, QStyle::StandardPixmap StandarPixmap
 	}
 
 #ifdef Q_OS_LINUX
-	Button->setIcon(Button->style()->standardIcon(StandarPixmap));
+    Button->setIcon(Button->style()->standardIcon(StandarPixmap));
 #else
-	// The standard icons does not look good on high DPI screens so we create
-	// our own "standard" icon here.
-	QPixmap normalPixmap = Button->style()->standardPixmap(StandarPixmap, 0, Button);
-	Icon.addPixmap(internal::createTransparentPixmap(normalPixmap, 0.25), QIcon::Disabled);
-	Icon.addPixmap(normalPixmap, QIcon::Normal);
-	Button->setIcon(Icon);
+    // The standard icons does not look good on high DPI screens so we create
+    // our own "standard" icon here.
+    QPixmap normalPixmap = Button->style()->standardPixmap(StandarPixmap, 0, Button);
+    Icon.addPixmap(internal::createTransparentPixmap(normalPixmap, 0.25), QIcon::Disabled);
+    Icon.addPixmap(normalPixmap, QIcon::Normal);
+    Button->setIcon(Icon);
 #endif
 }
 

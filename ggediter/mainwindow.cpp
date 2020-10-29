@@ -231,8 +231,7 @@ CMainWindow::CMainWindow(QWidget *parent)
     ui->menuView->addAction(PropertiesDockWidget->toggleViewAction());
     */
 
-    setWindowTitle("GuaGuaEditer");
-    
+    setWindowTitle("GuaGuaEditer");    
 }
 
 CMainWindow::~CMainWindow()
