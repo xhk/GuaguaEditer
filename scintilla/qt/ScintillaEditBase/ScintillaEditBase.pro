@@ -4,6 +4,8 @@
 #
 #-------------------------------------------------
 
+OUT_ROOT = $${OUT_PWD}/..
+
 QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -120,7 +122,7 @@ CONFIG(release, debug|release) {
     DEFINES += NDEBUG=1
 }
 
-DESTDIR = ../../bin
+DESTDIR = $${OUT_ROOT}/../../../lib
 
 macx {
 	QMAKE_LFLAGS_SONAME = -Wl,-install_name,@executable_path/../Frameworks/
