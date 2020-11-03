@@ -24,6 +24,8 @@ public:
     CMainWindow(QWidget *parent = nullptr);
     ~CMainWindow();
 
+    void Open(const QString& strFilePath);
+
 private slots:
     void on_actionNew_triggered();
     void on_actionOpen_triggered();
@@ -57,6 +59,8 @@ private:
 
     Ui::CMainWindow *ui;
 
+
+
     ads::CDockManager* DockManager;
     ads::CDockAreaWidget* StatusDockArea;
     ads::CDockWidget* TimelineDockWidget;
@@ -71,7 +75,7 @@ private:
     QMap<QString, int> _codePageMap;
 
     FileEditCtrl* GetCurrentEdit();
-    void Open(const QString& strFilePath);
+
     void OpenFolder(const QString & dir);
     QVector<FileEditCtrl*> _editerList;
     ads::CDockAreaWidget *_lastFileArea;

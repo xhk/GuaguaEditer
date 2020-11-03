@@ -75,19 +75,25 @@ void FileTreeView::Load(const QString & rootDir)
 
 void FileTreeView::OnClicked(const QModelIndex &index)
 {
+    qDebug()<<"FileTreeView::OnClicked";
     auto item = _model->itemFromIndex(index);
     auto fi = item->data().value<QFileInfo>();
-    auto path = fi.absoluteFilePath();
-    qDebug()<<"FileTreeView::OnClicked";
-    emit ClickFile(path);
+    if(fi.isFile()){
+        auto path = fi.absoluteFilePath();
+        emit ClickFile(path);
+    }
+
 }
 void FileTreeView::OnDoubleClicked(const QModelIndex & index)
 {
-    auto item = _model->itemFromIndex(index);
-    auto fi = item->data().value<QFileInfo>();
-    auto path = fi.absoluteFilePath();
     qDebug()<<"FileTreeView::OnDoubleClicked";
-    emit DoubleClickFile(path);
+
+//    auto item = _model->itemFromIndex(index);
+//    auto fi = item->data().value<QFileInfo>();
+//    if(fi.isFile()){
+//        auto path = fi.absoluteFilePath();
+//        emit DoubleClickFile(path);
+//    }
 }
 
 

@@ -48,9 +48,9 @@ void CMainWindow::OpenFolder(const QString & dir)
 
     CDockWidget* DataDockWidget = new CDockWidget(displayName);
     DataDockWidget->setWidget(fileTree);
-    DataDockWidget->resize(150, 100);
-    DataDockWidget->setMinimumSize(150, 100);
-    DataDockWidget->setMaximumWidth(200);
+//    DataDockWidget->resize(150, 100);
+//    DataDockWidget->setMinimumSize(150, 100);
+//    DataDockWidget->setMaximumWidth(200);
     if(_lastFileArea == nullptr)
         _lastFileArea = DockManager->addDockWidget(ads::LeftDockWidgetArea, DataDockWidget, _lastEditArea);
     else
@@ -231,8 +231,7 @@ CMainWindow::CMainWindow(QWidget *parent)
     ui->menuView->addAction(PropertiesDockWidget->toggleViewAction());
     */
 
-    setWindowTitle("GuaGuaEditer");
-    
+    setWindowTitle("GuaGuaEditer");    
 }
 
 CMainWindow::~CMainWindow()

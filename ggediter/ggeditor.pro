@@ -45,7 +45,7 @@ LIBS += \
 # Dependency: AdvancedDockingSystem (shared)
 CONFIG(debug, debug|release){
     win32 {
-        LIBS += -lqtadvanceddocking
+        LIBS += -lqtadvanceddockingd
     }
     else:mac {
         LIBS += -lqtadvanceddocking_debug
