@@ -431,7 +431,7 @@ void CMainWindow::closeEvent(QCloseEvent * event)
     auto dockMap = DockManager->dockWidgetsMap();
 
 
-    auto op = QMessageBox::information(this, tr("Exit Tip"), tr("请先停止运行"), tr("确定"), tr("取消"), 0, 1);
+    //auto op = QMessageBox::information(this, tr("Exit Tip"), tr("确定退出么"), tr("确定"), tr("取消"), 0, 1);
 
     // save worksapce
 
